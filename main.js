@@ -57,18 +57,21 @@ const getWeather = async (lat,lon)=> {
       const p = document.createElement('p')
       p.innerHTML = ''
       p.innerHTML = `
-      
-    <div class="card border-dark mb-3 text-center" style="max-width: 30rem;">
-    <div class="card-header">${data.name}</div>
-    <div class="card-body text-dark">
-    <p>${today_date}</p>
-    <h6 class="card-title">${data.weather[0].description}</h6>
-    <p class="card-text"><b>Temperature</b> ${data.main.temp} <b>Feels like</b> ${data.main.feels_like}</p>
-    <p><b>Hi:</b>${data.main.temp_max} <b>Lo:</b>${data.main.temp_min}</p>
-    </div>
+    <div class="row justify-content-md-center">
+        <div class="card border-dark mb-3 mt-5 text-center" style="max-width: 35rem;">
+        <div class="card-header display-5">${data.name}<p>${today_date}</p></div>
+       
+        <div class="card-body text-dark">
+        
+        <h6 class="card-title">${titleCase(data.weather[0].description)}</h6>
+        <p><b>Hi:</b>${Math.round(data.main.temp_max)} <b>Lo:</b>${Math.round(data.main.temp_min)} <b>Humidity</b>:${Math.round(data.main.humidity)}%</p>
+        <p class="card-text"><b>Current Temperature</b> ${Math.round(data.main.temp)} <br><b>Feels like</b> ${Math.round(data.main.feels_like)}</p>
+        
+        </div>
+        </div>
     </div>
      `;
-      document.querySelector('.show-weather').append(p)
+      document.querySelector('#get_weather').append(p)
       console.log(data)
     };
     
@@ -83,31 +86,31 @@ const getWeather = async (lat,lon)=> {
 const weather_form  = document.querySelector('#get_weather')
 weather_form.addEventListener('submit',(e)=>{
     e.preventDefault()
-    const c_name =  e.path[0][0].value
-    const weather_info = getGeo(c_name)
-//     const datalst = document.createElement('datalist')
-//     datalst.innerHTML = `
-//     <option value=${e.path[0].state}>
-//     <option value="Coconut">
-//     <option value="Mint">
-//     <option value="Strawberry">
-//     <option value="Vanilla">
-// `;
-//     document.querySelector('datalist').append(datalst)
-//       console.log(data)
-    
+    const cc_name =  e.path[0][0].value
+    const my_array= cc_name.split(",")
+    console.log(my_array)
+    const city_name = my_array[0]
+    console.log(city_name)
+    const state_name = my_array[1].trim()
+    console.log(state_name)
+   
+    console.log(city_name , state_name)
+    const weather_info = getGeo(titleCase(city_name), titleCase(state_name))
+
     return 
 });
 
 
-  const getGeo = async (city)=> {
-      const res = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=3&appid=${API_KEY}`)
+
+const getGeo = async (city,state,country)=> {
+      const res = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city},${state},us&limit=1&appid=${API_KEY}`)
       const data = await res.json()
       console.log(data)
       if (data){
       
-      getWeather(data[0].lat, data[0].lon)
-        }};
+        getWeather(data[0].lat, data[0].lon)}
+      
+        };
        
 
   
@@ -162,3 +165,31 @@ switch(month){
 
 };
 let today_date = `${t_day}, ${t_month} ${date}`
+
+
+
+
+const testGeo = async (city,state)=> {
+    const res = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city},${state}&limit=1&appid=${API_KEY}`)
+    const data = await res.json()
+    console.log(data)
+    if (data){
+    
+      getWeather(data[0].lat, data[0].lon)}
+    
+      };
+
+     
+
+
+
+      function titleCase(str) {
+        str = str.toLowerCase()
+                 .split(' ') 
+                 .map(function(word) {
+          return (word.charAt(0).toUpperCase() + word.slice(1));
+      });
+       return str.join(' '); 
+      }
+      
+      

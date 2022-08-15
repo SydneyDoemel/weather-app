@@ -5,30 +5,32 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"  integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
   </head>
   <body>
-    <div class="location">
-      <button class = "btn btn-outline-dark" id = "find-me">Share current location</button><br/>
-      <p id = "status"></p>
-      <a id = "map-link" target="_blank"></a>
-      <div class="show-weather">
-  
-      </div>
+    <div class="container">
+        <div class="location row-2 justify-content-md-center">
+          <button class = "btn btn-outline-dark btn-light mt-3 col" id = "find-me">Share current location</button><br/>
+          <p id = "status"></p>
+          <a id = "map-link" target="_blank"></a>
+          
+        </div>
+
+
+
+
+
+        <form action="" name="getWeather" id="get_weather" >
+          <label class="mb-1 mt-5 display-6 row justify-content-md-center my-label" for="cityName">Enter a U.S. city name</label><br>
+          <div class="row justify-content-md-center">
+          <input class="m-1 col-3" type="text" name="searchWeather" id="search_weather" placeholder="Ex.'New York City, New York'">
+          <button type="submit" class="btn btn-primary m-1 col-1">Submit</button>
+          </div>
+        </form> 
     </div>
-
-
-
-
-
-    <form action="" name="getWeather" id="get_weather">
-      <label class="mb-5 text-white  display-6" for="cityName">Enter a city name</label><br>
-      <input class="m-1" type="text" name="searchWeather" id="search_weather" placeholder="Ex.'London'">
-      <button type="submit" class="btn btn-primary m-1">Submit</button>
-      <button id="clear" class="btn btn-danger">Clear</button>
-  </form> 
-
   
     <script src="main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
